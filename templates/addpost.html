@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Add a new post</title>	
+	<style type="text/css">    
+	</style>
+</head>  
+  
+<body>
+<div>
+{% if not session.logged_in %}
+    <a href="{{ url_for('login') }}">log in</a>
+{% else %}
+    <a href="{{ url_for('logout') }}">log out</a>
+{% endif %}
+</div>
+
+    <p>Add A New Post:</p>
+
+    {% if session.logged_in %}        
+	<div>
+	<form action="{{ url_for('add_entry') }}" method="post">
+            <table border="1">
+            <tr><th>Title:</th></tr>
+            <tr>
+            <td><input type="text" name="title"></input></td>
+            </tr>
+            <tr><th>Write Entry:</th></tr>
+            <tr>
+            <td><textarea name="blogpost" rows=5 cols=40></textarea></td>
+            </tr>
+            <tr><th>Author:</th></tr>
+            <tr>
+            <td><select name="author">
+        {% for user in userlist %}
+                <option value="{{ user }}">{{ user }}</option>
+        {% else %}
+                <option value="">No data so far</option>
+        {% endfor %}
+            </select></td>
+            </tr>            
+            <tr>           
+            <td><input type="submit" value="Add New Blog Post"></input></td>
+            </tr>
+            </table>
+        </form>
+	</div>
+    {% endif %}
+	
+</body>
+</html>

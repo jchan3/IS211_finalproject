@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Edit Blog Post</title>	
+	<style type="text/css">    
+	</style>
+</head>  
+  
+<body>
+<div>
+{% if not session.logged_in %}
+    <a href="{{ url_for('login') }}">log in</a>
+{% else %}
+    <a href="{{ url_for('logout') }}">log out</a>
+{% endif %}
+</div>
+
+    <p>Edit Blog Post:</p>
+
+    {% if session.logged_in %}        
+	<div>
+	<form action="/update" method="post">
+            <table border="1">
+        {% for result in results %}
+            <tr><th>ID:</th></tr>
+            <tr>
+            <td><select name="pid">
+                <option value="{{ result[0] }}">{{ result[0] }}</option>
+            </select></td>
+            </tr>
+            <tr><th>Title:</th></tr>
+            <tr>
+            <td><textarea name="title">{{ result[1] }}</textarea></td>
+            </tr>
+            <tr><th>Write Entry:</th></tr>
+            <tr>
+            <td><textarea name="blogpost" rows=5 cols=40>{{ result[2] }}</textarea></td>
+            </tr>        
+            <tr>           
+            <td><input type="submit" value="Edit Blog Post"></input></td>
+            </tr>
+        {% else %}
+            <tr>
+            <td><em>No data so far</em></td>
+            </tr>
+        {% endfor %}
+            </table>
+        </form>
+	</div>
+    {% endif %}
+
+
+	
+</body>
+</html>

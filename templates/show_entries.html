@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Blog Entries</title>	
+	<style type="text/css">    
+	</style>
+</head>  
+  
+<body>
+<div>
+{% if not session.logged_in %}
+    <a href="{{ url_for('login') }}">log in</a>
+{% else %}
+    <a href="{{ url_for('logout') }}">log out</a>
+{% endif %}
+</div>
+
+    <p>Blog Entries:</p>
+
+    <table border="1" class=entries>
+    {% for entry in entries %}
+        <tr>
+            <td><th>Title:</th></td>
+            <td>{{ entry[0] }}</td>
+        </tr>
+        <tr>
+            <td><th>Post:</th></td>
+            <td>{{ entry[1] }}</td>
+        </tr>
+        <tr>
+            <td><th>Author:</th></td>
+            <td>{{ entry[2] }}</td>
+        </tr>
+        <tr>
+            <td><th>Date:</th></td>
+            <td>{{ entry[3] }}</td>
+        </tr>
+    {% else %}
+        <tr><em>No data found</em></tr>
+    {% endfor %}
+    </table>
+	
+</body>
+</html>
